@@ -1,0 +1,59 @@
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+  transition: transform 0.2s;
+}
+
+.product-card img:hover {
+  transform: scale(1.1);
+}
+
+.btn-outline-dark {
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-outline-dark:hover {
+  background-color: #343a40;
+  color: #fff;
+}
+
+/* Navbar Styles */
+.navbar {
+  height: 50px; /* Decrease the height */
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  font-size: 1rem; /* Adjust font size if needed */
+}
+
+/* Animation for error messages */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.text-danger, .text-success {
+  animation: fadeIn 0.5s;
+}
