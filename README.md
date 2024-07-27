@@ -5,7 +5,7 @@ Live Demo
 You can view the live application http://ecart-s3.s3-website-ap-southeast-2.amazonaws.com.
 Register yourself to log in or use 
 email- anishgujrathi2001@gmail.com 
-password - 123456git add .
+password - 123456
 
 Repository
 The code repository for this project is available on GitHub: https://github.com/webwizard420/emart1.
