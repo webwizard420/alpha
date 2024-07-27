@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Popup from './Popup'; // Make sure to import the Popup component
+import Popup from './Popup'; 
 
 export default function Cart({ cart, updateQuantity }) {
   const [showPopup, setShowPopup] = useState(false);
@@ -37,7 +37,7 @@ export default function Cart({ cart, updateQuantity }) {
                 <img src={product.images[0]} className="card-img-top" alt={product.title} height="250px" />
                 <div className="card-body">
                   <h5 className="card-title mb-0">{product.title}</h5>
-                  <p className="card-text lead fw-bold">${product.price}</p>
+                  <p className="card-text lead fw-bold">${product.price.toFixed(2)}</p>
                   <div className="quantity-controls">
                     <button className="btn btn-outline-dark me-2" onClick={() => handleDecreaseQuantity(product.id)}>-</button>
                     <span>{product.quantity}</span>
@@ -48,7 +48,7 @@ export default function Cart({ cart, updateQuantity }) {
             </div>
           ))}
           <div className="text-center mt-4">
-            <button className="checkout-button" onClick={handleCheckout}>
+            <button className="checkout-button btn btn-outline-dark" onClick={handleCheckout}>
               Checkout
             </button>
           </div>
