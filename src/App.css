@@ -1,6 +1,9 @@
 /* Global Styles */
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 .container {
@@ -8,6 +11,7 @@ body {
   margin: 0 auto;
 }
 
+/* Product Card Styles */
 .product-card {
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -36,12 +40,12 @@ body {
 
 /* Navbar Styles */
 .navbar {
-  height: 50px; /* Decrease the height */
+  height: 50px;
   padding: 0.5rem 1rem;
 }
 
 .navbar-brand, .navbar-nav .nav-link {
-  font-size: 1rem; /* Adjust font size if needed */
+  font-size: 1rem;
 }
 
 /* Animation for error messages */
@@ -56,4 +60,63 @@ body {
 
 .text-danger, .text-success {
   animation: fadeIn 0.5s;
+}
+
+/* Background Animation using keyframes */
+@keyframes backgroundAnimation {
+  0% {
+    background-image: url('https://source.unsplash.com/random/1600x900?nature');
+  }
+  25% {
+    background-image: url('https://source.unsplash.com/random/1600x900?city');
+  }
+  50% {
+    background-image: url('https://source.unsplash.com/random/1600x900?tech');
+  }
+  75% {
+    background-image: url('https://source.unsplash.com/random/1600x900?art');
+  }
+  100% {
+    background-image: url('https://source.unsplash.com/random/1600x900?space');
+  }
+}
+
+.animated-background {
+  animation: backgroundAnimation 15s infinite;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login and Signup Container */
+.login-container,
+.signup-container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.login-container:hover,
+.signup-container:hover {
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  .navbar-brand, .navbar-nav .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .login-container, .signup-container {
+    padding: 20px;
+    max-width: 90%;
+  }
 }

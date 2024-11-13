@@ -1,78 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import ProductPopup from './ProductPopup';
+import React, { useState } from 'react';
+import TaskList from './TaskList';
+import TaskForm from './TaskForm';
 
-export default function Home({ addToCart, selectedCategory }) {
-  const [products, setProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState(null);
+const App = () => {
+  const [tasks, setTasks] = useState([
+    { id: 1, title: 'Finish React Project', description: 'Complete the task management app.', status: 'Pending', priority: 'High' },
+    { id: 2, title: 'Clean the house', description: 'Do a full house cleaning.', status: 'Completed', priority: 'Low' },
+  ]);
 
-  useEffect(() => {
-    const fetchProducts = () => {
-      let url = 'https://api.escuelajs.co/api/v1/products';
-      if (selectedCategory) {
-        url = `https://api.escuelajs.co/api/v1/categories/${selectedCategory}/products`;
-      }
+  const [editingTask, setEditingTask] = useState(null);
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => setProducts(data))
-        .catch(error => console.error('Error fetching products:', error));
-    };
-
-    fetchProducts();
-  }, [selectedCategory]);
-
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
+  const addTask = (newTask) => {
+    setTasks([...tasks, { ...newTask, id: tasks.length + 1 }]);
   };
 
-  const filteredProducts = products.filter(product =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleProductClick = (product) => {
-    setSelectedProduct(product);
+  const editTask = (updatedTask) => {
+    setTasks(tasks.map(task => (task.id === updatedTask.id ? updatedTask : task)));
+    setEditingTask(null);
   };
 
-  const handleClosePopup = () => {
-    setSelectedProduct(null);
+  const deleteTask = (taskId) => {
+    setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
+  const startEditing = (task) => setEditingTask(task);
+
+  const toggleTaskStatus = (taskId) => {
+    setTasks(tasks.map(task =>
+      task.id === taskId ? { ...task, status: task.status === 'Pending' ? 'Completed' : 'Pending' } : task
+    ));
   };
 
   return (
-    <div className="hero">
-      <div className="container my-5">
-        <h2 className="mb-4">Home</h2>
-        <input 
-          type="text" 
-          className="form-control mb-4" 
-          placeholder="Search a product" 
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-        <div className="row">
-          {filteredProducts.map(product => (
-            <div className="col-md-3 mb-4" key={product.id}>
-              <div className="card h-100 text-center p-4 product-card" onClick={() => handleProductClick(product)}>
-                <img src={product.images[0]} className="card-img-top" alt={product.title} height="250px"/>
-                <div className="card-body">
-                  <h5 className="card-title mb-0">{product.title}</h5>
-                  <p className="card-text lead fw-bold">${product.price}</p>
-                  <button 
-                    className="btn btn-outline-dark"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      addToCart(product);
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      {selectedProduct && <ProductPopup product={selectedProduct} onClose={handleClosePopup} />}
+    <div style={styles.appContainer}>
+      <h1 style={styles.title}>Task Management App</h1>
+      <TaskList tasks={tasks} onEdit={startEditing} onDelete={deleteTask} onToggleStatus={toggleTaskStatus} />
+      <TaskForm onSubmit={editingTask ? editTask : addTask} editingTask={editingTask} />
     </div>
   );
-}
+};
+
+const styles = {
+  appContainer: {
+    maxWidth: '600px',
+    margin: '0 auto',
+    padding: '20px',
+    fontFamily: 'Arial, sans-serif',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: '2em',
+    color: '#333',
+  },
+};
+
+export default App;
